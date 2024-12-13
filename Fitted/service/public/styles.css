@@ -1,0 +1,722 @@
+/* Define color variables */
+:root {
+  --primary-bg: #1c1c1c; /* Dark gray, near-black background */
+  --accent-color: #f0b429; /* Golden yellow for highlights */
+  --secondary-color: #606060; /* Medium gray for borders or inactive elements */
+  --primary-text: #ffffff; /* White for text */
+  --secondary-text: #d1d1d1; /* Light gray for secondary text */
+  --border-radius: 8px; /* Slightly rounded corners */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Modern shadow */
+  --modal-bg: rgba(0, 0, 0, 0.8); /* Modal overlay background */
+}
+
+html, body {
+  margin: 0; /* Remove default margin */
+  overflow: auto; /* Allow scrolling */
+}
+
+body {
+  height: auto; 
+  background-color: var(--primary-bg); /* Set background color */
+  font-family: 'Arial', sans-serif; /* Set font family */
+  color: var(--primary-text); /* Set text color */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header container for the title and navbar */
+.header {
+  display: flex;
+  flex-direction: column; /* Stack the title and navbar vertically */
+  align-items: center; /* Center-align the content */
+  padding: 20px 0; /* Add some padding */
+  background-color: rgba(240, 180, 41, 0.4); /* Match the background color of the title */
+  border-bottom: 2px solid var(--accent-color); /* Add a border below the header */
+}
+
+/* Style for the title */
+.header h1 {
+  font-size: 36px; /* Adjust font size */
+  margin: 0; /* Remove default margin */
+  color: var(--primary-text); /* Set text color */
+}
+
+/* Style for the sidebar navbar */
+.sidebar-navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 200px; /* Adjust the width of the sidebar */
+  background-color: #333; /* Sidebar background color */
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the buttons in the sidebar */
+.sidebar-navbar .btn {
+  background-color: #444; /* Button background color */
+  color: white; /* Text color */
+  border: none; /* Remove button borders */
+  padding: 10px;
+  text-align: left; /* Align text to the left */
+  margin-bottom: 10px; /* Space between buttons */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  width: 100%; /* Make buttons full width */
+}
+
+.sidebar-navbar .btn:hover {
+  background-color: #555; /* Button hover color */
+}
+
+/* Adjust content layout to account for sidebar */
+.container {
+  margin-left: 220px; /* Push the main content to the right */
+  padding: 20px; /* Add padding around the content */
+}
+
+/* Sidebar Container */
+.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 200px; /* Full sidebar width */
+  background-color: var(--primary-bg); /* Sidebar background */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  padding: 0; /* Remove inner padding */
+  margin: 0; /* Remove outer margin */
+  border-right: 2px solid var(--secondary-color); /* Add vertical line on the right */
+}
+
+/* Sidebar Buttons */
+.navbar .btn {
+  display: block; /* Block element to take full width */
+  width: 100%; /* Full width to fill parent container */
+  padding: 0 20px; /* Add horizontal padding to move text */
+  margin: 0; /* Remove any margins */
+  background-color: var(--primary-bg); /* Match sidebar background */
+  color: var(--primary-text); /* Text color */
+  text-align: left; /* Align text to the left */
+  font-size: 16px; /* Font size for readability */
+  line-height: 50px; /* Adjust line height to vertically center text */
+  cursor: pointer; /* Pointer cursor for interaction */
+  transition: all 0.3s ease; /* Smooth transitions for hover effects */
+  border: none; /* Remove borders */
+  border-radius: 0; /* Remove rounded edges */
+}
+
+/* Hover State */
+.navbar .btn:hover {
+  background-color: var(--hover-bg, #444); /* Highlight the entire button */
+  color: var(--accent-color, #FFD700); /* Accent text color */
+}
+
+/* Active State */
+.navbar .btn.active {
+  background-color: var(--accent-color, #f0b429); /* Keep highlight consistent */
+  color: var(--primary-bg); /* Contrast text color */
+}
+
+/* Add a bottom border highlight (white underline) */
+.navbar .btn:hover::after,
+.navbar .btn.active::after {
+  content: ""; /* Create a pseudo-element for underline */
+  display: block; /* Make it a block element */
+  width: calc(100% - 0px); /* Full width underline */
+  height: 2px; /* Thickness of the underline */
+  background-color: var(--primary-text); /* White color for the underline */
+  position: relative; /* Ensure it aligns with the button */
+  bottom: 0; /* Align underline at the bottom */
+}
+
+/* Input styling */
+input[type="text"],
+textarea {
+  width: 100%; /* Full width input */
+  padding: 10px; /* Uniform padding on all sides */
+  margin: 10px 0; /* Space between input fields */
+  border: 1px solid var(--secondary-color); /* Medium gray border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  background-color: var(--primary-bg); /* Dark gray background */
+  color: var(--primary-text); /* White text */
+  box-sizing: border-box; /* Include padding in the element's width */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none; /* Remove default outline on focus */
+  border-color: var(--accent-color); /* Golden yellow border on focus */
+}
+
+/* Button styles */
+button {
+  background-color: var(--accent-color); /* Golden yellow background */
+  color: var(--primary-text); /* White text */
+  padding: 10px 20px; /* Padding around button */
+  border: none; /* Remove border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+button:hover {
+  background-color: var(--secondary-color); /* Darker gray background on hover */
+  color: var(--primary-bg); /* Change text color to dark gray on hover */
+}
+
+/* Post styling */
+.post {
+  background-color: var(--primary-bg); /* Dark gray background */
+  border: 1px solid var(--secondary-color); /* Medium gray border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  padding: 20px; /* Padding inside post */
+  margin: 20px 0; /* Space around the post */
+  box-shadow: var(--box-shadow); /* Apply shadow */
+}
+
+.post img {
+  max-width: 100%; /* Make image responsive */
+  border-radius: var(--border-radius); /* Rounded corners for images */
+  margin-top: 10px; /* Space above the image */
+}
+
+.post div {
+  margin-bottom: 10px; /* Space below each div inside the post */
+  color: var(--secondary-text); /* Light gray text for post content */
+}
+
+/* Modal styling */
+.modal {
+  display: none; /* Hide modal by default */
+  position: fixed; /* Fixed position on the screen */
+  z-index: 1100; /* Modal should appear above other content */
+  top: 0; /* Position at the top */
+  left: 0; /* Position at the left */
+  width: 100%; /* Full screen width */
+  height: 100%; /* Full screen height */
+  background-color: var(--modal-bg); /* Dark overlay for the modal background */
+  overflow: auto; /* Allow scrolling */
+}
+
+.modal-content {
+  background: var(--primary-bg); /* Dark gray background for modal content */
+  margin: 10% auto; /* Center modal on the screen */
+  padding: 20px; /* Padding inside modal */
+  border: 2px solid var(--secondary-color); /* Medium gray border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  box-shadow: var(--box-shadow); /* Apply shadow */
+  width: 80%; /* Set width of modal */
+  max-width: 600px; /* Max width for modal */
+  color: var(--primary-text); /* White text */
+}
+
+.modal-content h2 {
+  text-align: center; /* Center heading inside modal */
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+.modal-content button {
+  display: block; /* Center button */
+  margin: 20px auto 0; /* Space around the button */
+}
+
+/* Search results */
+#searchResults {
+  margin-top: 20px; /* Margin above search results */
+  padding: 15px; /* Padding inside search results box */
+  border: 1px solid var(--secondary-color); /* Medium gray border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  background-color: var(--primary-bg); /* Dark gray background */
+  box-shadow: var(--box-shadow); /* Apply shadow */
+}
+
+/* Blog section */
+.blog {
+  background-color: var(--primary-bg); /* Dark gray background */
+  border: 1px solid var(--secondary-color); /* Medium gray border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  padding: 20px; /* Padding inside blog section */
+  box-shadow: var(--box-shadow); /* Apply shadow */
+}
+
+.blog textarea {
+  border: 1px solid var(--secondary-color); /* Medium gray border for textarea */
+  padding: 10px; /* Padding inside textarea */
+  border-radius: var(--border-radius); /* Rounded corners */
+  background-color: var(--primary-bg); /* Dark gray background */
+  color: var(--primary-text); /* White text */
+}
+
+/* Ensure consistent size for username and password input fields */
+.modal-content input[type="text"],
+.modal-content input[type="password"] {
+    width: 100%; /* Make both inputs take up the same full width */
+    padding: 10px; /* Uniform padding */
+    margin: 10px 0; /* Consistent spacing between inputs */
+    border: 1px solid var(--secondary-color); /* Matching border styles */
+    border-radius: var(--border-radius); /* Rounded corners */
+    background-color: var(--primary-bg); /* Background color */
+    color: var(--primary-text); /* Text color */
+    box-sizing: border-box; /* Include padding and border in the width */
+    font-size: 16px; /* Matching font size */
+}
+/* Additional styling for the password input specifically */
+#register-password,
+#register-repassword {
+  font-size: 16px; /* Set font size */
+  font-family: 'Arial', sans-serif; /* Use Arial font */
+  letter-spacing: 1px; /* Add slight letter spacing */
+}
+
+#register-password:focus,
+#register-repassword:focus {
+  border-color: var(--accent-color); /* Golden yellow border color on focus */
+}
+
+/* Container to hold both buttons */
+.post-buttons {
+  display: flex; /* Use flexbox for layout */
+  gap: 10px;  /* Space between buttons */
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+/* Style for both buttons in the post buttons container */
+.post-buttons button {
+  padding: 10px 20px;  /* Consistent padding for buttons */
+  font-size: 16px; /* Font size for buttons */
+  border-radius: 5px; /* Slightly rounded corners for buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth color change on hover */
+}
+
+/* Style for the "Back to Top" button */
+#backToTopButton {
+  background-color: var(--accent-color); /* Golden yellow background */
+  color: white; /* White text */
+  border: none; /* Remove button border */
+}
+
+#backToTopButton:hover {
+  background-color: var(--secondary-color); /* Change to dark gray on hover */
+}
+
+/* Style for the "Upload Post" button */
+button[type="button"]:hover {
+  background-color: var(--secondary-color); /* Change to dark gray on hover */
+}
+
+/* Additional styling for the modal */
+.modal-content {
+  padding: 20px; /* Padding inside the modal */
+  border-radius: var(--border-radius); /* Rounded corners */
+  box-shadow: var(--box-shadow); /* Apply box shadow for a modern look */
+  max-width: 500px; /* Limit the modal size */
+  margin: 10% auto; /* Center the modal with margin */
+}
+
+.close {
+  cursor: pointer; /* Change cursor to a hand when hovering over the close icon */
+}
+
+/* Username link styling */
+.username-link {
+  color: var(--accent-color); /* Golden yellow color for links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.username-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Sidebar: Profile and Add your Post sections */
+.sidebar .box {
+  background-color: var(--primary-bg); /* Match background to theme */
+  border: 1px solid var(--secondary-color); /* Border similar to other boxes */
+  border-radius: var(--border-radius); /* Rounded corners for the box */
+  padding: 20px; /* Padding inside the box */
+  margin: 20px 0; /* Space between boxes */
+  box-shadow: var(--box-shadow); /* Apply box shadow for a modern look */
+}
+
+/* Profile modal content text alignment */
+#profileModal .modal-content {
+  text-align: left; /* Left-align text in the profile modal */
+}
+
+/* Profile button styling */
+#profileButton {
+  background-color: var(--accent-color); /* Golden yellow background */
+  color: var(--primary-text); /* White text */
+  border-radius: var(--border-radius); /* Rounded corners */
+  padding: 10px 20px; /* Padding inside the button */
+  margin-top: 10px; /* Space above the button */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+#profileButton:hover {
+  background-color: var(--secondary-color); /* Change background color on hover */
+  color: var(--primary-bg); /* Change text color on hover */
+}
+
+/* Ensure the profile modal appears above the search modal */
+#userProfileModal {
+  z-index: 1100; /* Set higher z-index to ensure it appears above search modal */
+}
+
+#searchPeopleModal {
+  z-index: 1000; /* Lower z-index for search modal */
+}
+
+/* Profile modal content styling */
+#userProfileModal .modal-content {
+  text-align: center; /* Center-align text in the profile modal */
+  padding: 20px; /* Padding inside the modal */
+  border-radius: var(--border-radius); /* Rounded corners */
+  background-color: var(--primary-bg); /* Dark gray background */
+  color: var(--primary-text); /* White text */
+}
+
+#userProfileModal h2 {
+  font-size: 24px; /* Larger font size for the heading */
+  margin-bottom: 10px; /* Space below the heading */
+}
+
+#userProfileModal p {
+  font-size: 18px; /* Font size for the profile details */
+  margin: 5px 0; /* Vertical margin for the paragraph */
+}
+
+/* Profile picture container */
+.profile-picture-container {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically align content */
+  justify-content: center; /* Horizontally center content */
+  margin-bottom: 10px; /* Space below the profile picture container */
+}
+
+/* Align profile picture and username side by side */
+.profile-info {
+  display: flex; /* Flexbox for side-by-side layout */
+  align-items: center; /* Vertically align profile picture and username */
+  gap: 15px; /* Space between profile picture and username */
+}
+
+/* Profile Picture Container */
+.profile-picture-container {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically align profile picture */
+  margin-bottom: 10px; /* Space below profile picture container */
+}
+
+/* Circular Profile Picture */
+.profile-picture {
+  width: 60px; /* Set fixed width for profile picture */
+  height: 60px; /* Set fixed height for profile picture */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Cover the container without distortion */
+  cursor: pointer; /* Pointer cursor on hover */
+  border: 2px solid var(--accent-color); /* Golden yellow border around the image */
+  background-color: var(--primary-bg); /* Default background when no image */
+  display: flex;
+  justify-content: center; /* Center the image inside the circle */
+  align-items: center; /* Align image in the center */
+}
+
+/* Add a fallback for when no image is uploaded */
+.profile-picture[src="default-profile.png"] {
+  background-color: var(--secondary-color); /* Default gray background for no image */
+  content: ''; /* Clear any content for the fallback */
+  background-size: contain; /* Ensure the default image fits within the container */
+}
+
+/* Username Styling */
+.profile-details {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack profile details vertically */
+  justify-content: center; /* Center the profile details */
+}
+
+.info-label {
+  font-weight: bold; /* Bold font for labels */
+  color: var(--secondary-text); /* Light gray color for labels */
+}
+
+.info-value {
+  color: var(--primary-text); /* White color for the value */
+  font-size: 18px; /* Font size for the value */
+}
+
+/* Match the post search links with the username links styling */
+.post-link {
+  color: var(--accent-color); /* Golden yellow color for the links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.post-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Follow button styling */
+.btn-follow {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-follow.friends-status {
+  background-color: black;
+  color: white;
+}
+
+.btn-follow.friends-status:hover {
+  background-color: black;
+  color: yellow;
+}
+
+/* Hover effect for the follow button */
+.btn-follow:hover {
+  background-color: #0056b3; /* Change the background color on hover to a darker blue */
+}
+
+/* Flash animation effect for elements with .flash-effect class */
+.flash-effect {
+  animation: flash 1s ease-in-out; /* Apply 'flash' animation with 1-second duration */
+}
+
+/* Hide the default file input */
+input[type="file"] {
+  display: none;  /* Hide the default file input field */
+}
+
+/* Style the custom button for file input */
+.custom-file-button {
+  background-color: var(--secondary-color); /* Match button background with secondary color */
+  color: var(--primary-text); /* White text color */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* Remove button border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Set font size */
+  transition: all 0.3s ease; /* Smooth transition effect on hover */
+  display: inline-block; /* Display the button inline */
+}
+
+.custom-file-button:hover {
+  background-color: var(--secondary-color); /* Keep the same background color on hover */
+  color: var(--primary-bg); /* Change text color to primary background on hover */
+}
+
+/* Tab container layout */
+.tab-container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the tabs horizontally */
+  border-bottom: 1px solid var(--secondary-color); /* Bottom border with secondary color */
+  margin-top: 10px; /* Margin at the top */
+  padding-bottom: 5px; /* Padding at the bottom */
+}
+
+/* Style for each tab */
+.tab {
+  flex: 1; /* Allow each tab to expand equally */
+  text-align: center; /* Center the tab text */
+  padding: 10px 20px; /* Padding around the tab text */
+  cursor: pointer; /* Pointer cursor on hover */
+  background-color: var(--primary-bg); /* Set background to primary color */
+  color: var(--primary-text); /* Set text color to white */
+  border: none; /* Remove border */
+  font-size: 16px; /* Set font size */
+  font-weight: normal; /* Normal font weight */
+  outline: none; /* Remove outline */
+  transition: all 0.3s ease; /* Smooth transition effect */
+}
+
+/* Style for active tab */
+.tab.active {
+  font-weight: bold; /* Make active tab text bold */
+  border-bottom: 3px solid var(--accent-color); /* Add golden yellow bottom border to active tab */
+}
+
+/* Hide inactive tabs */
+.tab-content {
+  display: none; /* Hide inactive tab content */
+  margin-top: 20px; /* Margin above the content */
+  padding: 20px; /* Padding inside the content */
+}
+
+/* Show active tab content */
+.tab-content.active {
+  display: block; /* Display the active tab content */
+}
+
+/* Profile modal layout */
+.profile-modal-content {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically align content */
+  justify-content: space-around; /* Space out content evenly */
+  padding: 20px; /* Padding inside the modal */
+}
+
+/* Profile picture container inside modal */
+.profile-picture-container-modal {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically align profile picture */
+  justify-content: center; /* Horizontally center the profile picture */
+  margin-right: 20px; /* Margin to the right of the container */
+}
+
+/* Profile picture styling in modal */
+.profile-picture-modal {
+  width: 100px; /* Fixed width for the profile picture */
+  height: 100px; /* Fixed height for the profile picture */
+  border-radius: 50%; /* Make the profile picture circular */
+  object-fit: cover; /* Ensure the image covers the container without distortion */
+  border: 3px solid var(--accent-color); /* Golden yellow border around the profile picture */
+  background-color: var(--secondary-color); /* Default background color if no image is uploaded */
+}
+
+/* Profile details in modal */
+.profile-details-modal {
+  text-align: left; /* Left-align text in profile details */
+  color: var(--primary-text); /* White text color */
+}
+
+.profile-details-modal h2 {
+  margin: 0; /* Remove margin */
+  font-size: 24px; /* Larger font size for heading */
+}
+
+.profile-details-modal p {
+  margin: 10px 0 0; /* Margin around paragraphs */
+  font-size: 16px; /* Font size for profile details */
+}
+
+/* Layout for profile stats section */
+.profile-stats {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between stats */
+  align-items: center; /* Vertically align stats */
+  font-size: 14px; /* Font size for stats */
+  color: #d1d1d1; /* Light gray text for stats */
+}
+
+.profile-stats p {
+  margin: 0; /* Remove margin */
+  padding: 0 10px; /* Padding between each stat */
+}
+
+/* Feed sorting container */
+.feed-sorting-container {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically align the content */
+  justify-content: flex-end; /* Align content to the right */
+  margin: 10px 20px; /* Margin around the container */
+}
+
+/* Label styling for feed sorting */
+.feed-sorting-container label {
+  margin-right: 10px; /* Space between label and dropdown */
+  color: var(--primary-text); /* White text color */
+  font-size: 14px; /* Font size for the label */
+}
+
+/* Feed sorting dropdown styling */
+#feed-sorting {
+  background-color: var(--primary-bg); /* Dark gray background */
+  color: var(--primary-text); /* White text color */
+  border: 1px solid var(--secondary-color); /* Border with secondary color */
+  border-radius: var(--border-radius); /* Rounded corners */
+  padding: 5px; /* Padding inside the dropdown */
+  font-size: 14px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+#feed-sorting:hover {
+  border-color: var(--accent-color); /* Change border color on hover */
+}
+
+/* Weather box styling */
+#weather-box {
+  background-color: var(--primary-bg); /* Dark gray background */
+  border: 1px solid var(--secondary-color); /* Medium gray border */
+  border-radius: var(--border-radius); /* Rounded corners */
+  padding: 20px; /* Padding inside the box */
+  margin: 20px 0; /* Margin around the box */
+  box-shadow: var(--box-shadow); /* Box shadow for modern look */
+  color: var(--primary-text); /* White text color */
+  text-align: center; /* Center-align text inside the box */
+}
+
+#weather-box h3 {
+  margin-bottom: 10px; /* Margin below heading */
+  color: var(--accent-color); /* Golden yellow color for the heading */
+}
+
+#weather-content p {
+  margin: 5px 0; /* Margin around paragraphs */
+  font-size: 14px; /* Font size for weather content */
+  color: var(--secondary-text); /* Light gray color for the content */
+}
+
+/* Character counter container */
+.counter-container {
+  text-align: right; /* Align character counter to the right */
+  margin-bottom: 10px; /* Space below the counter */
+}
+
+/* Post button container */
+.post-buttons {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Space between buttons */
+}
+
+/* Character counter styling */
+#char-counter {
+  font-size: 14px; /* Font size for the character counter */
+  font-weight: bold; /* Bold font for the counter */
+}
+
+
+/* Flash animation effect */
+@keyframes flash {
+  0% {
+      background-color: rgba(255, 255, 0, 0.5); /* Bright yellow at the start */
+  }
+  50% {
+      background-color: rgba(255, 255, 0, 0); /* Transparent at halfway */
+  }
+  100% {
+      background-color: initial; /* Reset to the original background */
+  }
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 768px) {
+  .navbar {
+    width: 180px; /* Narrow sidebar on small screens */
+  }
+  
+  .container {
+    margin-left: 200px; /* Adjust margin for smaller screens */
+  }
+  
+
+  .modal-content {
+    width: 90%; /* Set modal width to 90% on small screens */
+  }
+
+  .post {
+    margin: 10px 0; /* Reduce margin around posts */
+    padding: 15px; /* Adjust padding inside posts */
+  }
+}

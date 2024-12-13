@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 for support of special characters -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Make the page responsive on different screen sizes -->
+    <title>Fitted</title> <!-- Page title displayed in the browser tab -->
+</head>
+
+<body>
+
+    <!-- Modal for Register -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span> <!-- Close button for the modal -->
+            <form id="registerForm">
+                <h2>Register</h2><br>
+                <!-- Registration form with fields for email, username, password, etc. -->
+                <label for="register-email">Email:</label><br>
+                <input type="text" id="register-email" placeholder="Your Email.." name="email" required><br>
+                <label for="register-username">Username:</label><br>
+                <input type="text" id="register-username" placeholder="Your Username.." name="username" required><br>
+                <label for="register-password">Password:</label><br>
+                <input type="password" id="register-password" placeholder="Your Password.." name="password" required><br>
+                <label for="register-repassword">Repeat Password:</label><br>
+                <input type="password" id="register-repassword" placeholder="Your Password.." name="password" required><br>
+                <label for="register-age">Age:</label><br>
+                <input type="text" id="register-age" placeholder="Your Age.." name="age" required><br><br><br>
+                <button type="button" onclick="register()">Register</button> <!-- Register button -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span> <!-- Close button for the modal -->
+            <form id="loginForm">
+                <h2>Login</h2><br>
+                <!-- Login form with fields for username and password -->
+                <label for="login-username">Username:</label><br>
+                <input type="text" id="login-username" placeholder="Your UserID.." name="username" required><br>
+                <label for="login-password">Password:</label><br>
+                <input type="password" id="login-password" placeholder="Your Password.." name="password" required><br><br><br>
+                <button type="button" onclick="login()">Login</button> <!-- Login button -->
+            </form>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('aboutModal')">&times;</span> <!-- Close button for the modal -->
+            <h2>About</h2><br>
+            <p>Welcome to Fitted, the main website for sharing your outfit ideas with other like-minded people! The feed is refreshed daily so you can see all the posts for that day.</p>
+        </div>
+    </div>
+
+    <!-- Modal to display posts by logged in user -->
+    <div id="userPostsModal" class="modal">
+        <div class="modal-content user-posts-modal-content">
+            <span class="close user-posts-close" onclick="closeModal('userPostsModal')">&times;</span> <!-- Close button for the modal -->
+            <h2 class="user-posts-modal-title">Your Posts</h2>
+            <div id="userPostsContent" class="user-posts-modal-body"></div> <!-- User posts will be displayed here -->
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="userProfileModal" class="modal">
+        <div id="userProfileModalContent" class="modal-content">
+            <div class="profile-modal-content">
+                <!-- Profile Picture -->
+                <div class="profile-picture-container-modal">
+                    <img id="profilePictureModal" class="profile-picture-modal" src="/M00949455/default-profile.png" alt="Profile Picture">
+                </div>
+                <!-- Profile Details -->
+                <div class="profile-details-modal">
+                    <h2 id="profileUsername">@username</h2>
+                    <p>Posts: <span id="profilePostsCount">0</span> Followers: <span id="profileFollowersCount">0</span> Following: <span id="profileFollowingCount">0</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+    <!-- Modal for Search (People/Posts) -->
+    <div id="searchPeopleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('searchPeopleModal')">&times;</span> <!-- Close button for the modal -->
+            <h2>Search People or Posts</h2>
+            <form id="searchPeopleForm">
+                <label for="searchPeopleInput">Enter keyword:</label><br>
+                <input type="text" id="searchPeopleInput" placeholder="Search People...">
+                <button type="button" onclick="searchAll()">Search</button> <!-- Combined Search button -->
+            </form>
+            <div id="searchResults"></div> <!-- Search results will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <!-- Navbar buttons for login, register, search, about, and logout -->
+        <button class="btn" onclick="openModal('loginModal')">Login</button>
+        <button class="btn" onclick="openModal('registerModal')">Register</button>
+        <button class="btn" onclick="openModal('searchPeopleModal')">Search</button>
+        <button class="btn" onclick="openModal('aboutModal')">About</button>
+        <button class="btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>FITTED</h1>
+    </div>
+    
+    
+    
+    <div class="container">
+        <!-- Add the Tab Switch -->
+    <div class="tab-container">
+        <button class="tab active" id="feed-tab" onclick="switchFeed('feed')">Feed</button> <!-- Feed tab button -->
+        <button class="tab" id="following-tab" onclick="switchFeed('following')">Following</button> <!-- Following tab button -->
+    </div>
+        <!-- Sidebar: Profile section -->
+        <div class="sidebar" id="profile-section" style="display: none;">
+            <div class="profile-container">
+                <div class="box">
+                    <div class="user-info">
+                        <div class="profile-info">
+                            <!-- Profile Picture -->
+                            <div class="profile-picture-container">
+                                <label for="profile-picture-input">
+                                    <img id="profile-picture" class="profile-picture" src="/M00949455/default-profile.png" alt="Profile Picture">
+                                </label>
+                                <input type="file" id="profile-picture-input" accept="image/*" style="display: none;" onchange="uploadProfilePicture()"> <!-- Profile picture upload -->
+                            </div>
+
+                            <!-- Username -->
+                            <div class="profile-details">
+                                <span class="info-value username" id="username-display">@Guest</span> <!-- Display username -->
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <button type="button" onclick="openModal('userPostsModal'); fetchAndDisplayUserPosts();">See Your Posts</button>
+                            <button type="button" id="postButton" onclick="scrollToBottom()">Post</button> <!-- Button to post -->
+                            <button type="button" id="profileButton" onclick="openUserProfileModal(document.getElementById('username-display').textContent.trim())">Profile</button> <!-- Button to view profile -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Weather Box -->
+    <div class="box" id="weather-box">
+        <div id="weather-content">
+            <p>Loading...</p> <!-- Placeholder text for weather content -->
+        </div>
+    </div>
+    
+            
+    <!-- Add the sorting dropdown above the feed -->
+    <div class="feed-sorting-container">
+        <label for="feed-sorting">Sort by:</label>
+        <select id="feed-sorting" onchange="updateFeedSorting()"> <!-- Dropdown for sorting feed -->
+            <option value="earliest" selected>Earliest</option>
+            <option value="latest">Latest</option>
+        </select>
+    </div>
+
+    <!-- Main Feed Content -->
+    <div class="content" id="feed-content">
+        <h1>Feed</h1>
+        <p>This section will display the latest posts.</p> <!-- Placeholder text for feed -->
+    </div>
+
+    <div id="pagination">
+        <button id="prev-page" disabled>Previous</button> <!-- Button to go to the previous page -->
+        <button id="next-page">Next</button> <!-- Button to go to the next page -->
+    </div>
+          
+    <!-- Add your Post section -->
+    <div class="add-post-container" id="add-post-section" style="display: none;">
+        <div class="box">
+            <h3>Add your Post:</h3>
+            <div class="blog">
+                <form id="post" enctype="multipart/form-data">
+                    <textarea id="blog-content" placeholder="Caption" maxlength="300"></textarea><br> <!-- Textarea for post caption -->
+                    <div class="custom-file-input-wrapper">
+                        <label class="custom-file-button" for="photo-upload">Browse</label>
+                        <input type="file" id="photo-upload" accept="image/png, image/jpeg, image/jpg, image/gif" onchange="updateFileName(this)"> <!-- File input for post image -->
+                        <span id="file-name" class="custom-file-label">No file chosen</span> <!-- Display chosen file name -->
+                    </div>                                                   
+                    <div class="post-buttons">
+                        <!-- Character counter above the buttons -->
+                        <div class="counter-container">
+                            <span id="char-counter">0/300</span> <!-- Character counter for caption -->
+                        </div>
+                        <button type="button" onclick="uploadPost()">Upload Post</button> <!-- Button to upload the post -->
+                        <button id="backToTopButton" onclick="scrollToTop()">Back to Top</button> <!-- Button to scroll back to top -->
+                    </div>                        
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('errorModal')">&times;</span> <!-- Close button for the error modal -->
+            <p id="errorMessage">An error occurred.</p> <!-- Error message -->
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/M00949455/styles.css"> <!-- Link to external CSS file for styling -->
+    <!-- Scripts -->
+    <script src="/M00949455/socket.io/socket.io.js"></script> <!-- Socket.io script -->
+    <script src="/M00949455/functions.js"></script> <!-- Link to JavaScript file for functions -->
+</body>
+
+</html>
